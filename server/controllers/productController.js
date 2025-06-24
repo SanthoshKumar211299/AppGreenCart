@@ -1,6 +1,6 @@
 import {v2 as cloudinary} from 'cloudinary'
 import Product from '../models/Product.js'
-import { json } from 'express'
+
 
 
 //add product: /api/product/add
