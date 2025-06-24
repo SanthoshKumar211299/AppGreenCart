@@ -1,5 +1,6 @@
 import {v2 as cloudinary} from 'cloudinary'
 import Product from '../models/Product.js'
+import { json } from 'express'
 
 
 //add product: /api/product/add
@@ -7,7 +8,7 @@ import Product from '../models/Product.js'
 export const addProduct = async(req,res)=>{
 
     try {
-          let productData = JSON.parse(req.body.productData)
+          let productData = json.parse(req.body.productData)
 
           const images = req.files
 
