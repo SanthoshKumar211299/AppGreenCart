@@ -8,7 +8,7 @@ import Product from '../models/Product.js'
 export const addProduct = async(req,res)=>{
 
     try {
-          let productData = json.parse(req.body.productData)
+          let productData = JSON.parse(req.body.productData)
 
           const images = req.files
 
@@ -37,7 +37,7 @@ export const productList = async(req,res)=>{
     try {
         
         const products = await Product.find({})
-        res.JSON({success:true,products})
+        res.json({success:true,products})
         
     } catch (error) {
         console.log(error.message);
