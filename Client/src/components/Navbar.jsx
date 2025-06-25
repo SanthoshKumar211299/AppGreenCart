@@ -8,7 +8,7 @@ const Navbar = () => {
     const [open, setOpen] = React.useState(false)
     const {user,setUser,setShowUserLogin,navigate,setSearchQuery,searchQuery,getCartCount,axios} = useAppContext();
     const Logout=async()=> {
-        console.log("Log out clicked");
+        
         
         try {
             const {data} = await axios.get('/api/user/logout',{withCredentials: true})
