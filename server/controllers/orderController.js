@@ -1,6 +1,7 @@
 import Order from "../models/Order.js";
 import Product from "../models/Product.js";
 import stripe from 'stripe'
+import User from '../models/User.js'
 
 //Place Order COD : /api/order/cod
 
@@ -106,6 +107,77 @@ export const placeOrderStripe = async (req, res)=>{
         res.json({success:false, message:error.message})
         
     }
+}
+
+//Stripe webhook to verify payment Action: /stripe
+
+export const stripeWebhooks = async(request,response)=>{
+
+    //Stripe getway initialize
+
+    const stripeInstance = new stripe(process.env.STRIPE_WEBHOOK_SECRET);
+
+    const sig= request.headers['stripe-signature']
+
+    let event;
+
+    try {
+        event  = stripeInstance.webhooks.constructEvent(
+            request.body,
+            sig,
+            process.env.STRIPE_WEBHOOK_SECRET
+        );
+    } catch (error) {
+        res.status(400).send(`Webhook Error: ${error.message}`)
+    }
+    //Handle the event
+    switch (event.type) {
+        case 'payment_intent.succeeded':{
+            const paymentIntent =event.data.object;
+            const paymentIntentId =paymentIntent.id;
+
+            //getting the session metadata
+            const session =await stripeInstance.checkout.sessions.list({
+                payment_intent:paymentIntentId,
+            });
+
+            const {orderId,userId} =session.data[0].metadata;
+
+            //Mark payment as Paid
+
+            await Order.findByIdAndUpdate(orderId, {isPaid:true})
+
+            //clear user cart
+            await User.findByIdAndUpdate(userId, {cartItems:{}})
+             
+            break;
+    
+        }
+        case 'payment_intent.failed':{
+            const paymentIntent =event.data.object;
+            const paymentIntentId =paymentIntent.id;
+
+            //getting the session metadata
+            const session =await stripeInstance.checkout.sessions.list({
+                payment_intent:paymentIntentId,
+            });
+
+            const {orderId} =session.data[0].metadata;
+
+            await Order.findByIdAndDelete(orderId);
+
+            break;
+
+        }
+            
+          
+        default:
+            console.error(`Unhandled event type ${event.type}`);
+            
+            break;
+    }
+    response.json({received:true})
+
 }
 
 //Get Orders by User ID: /api/order/user
