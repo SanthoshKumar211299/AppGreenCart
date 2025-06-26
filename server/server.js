@@ -36,6 +36,10 @@ app.use(cors({origin:allowedOrigins, credentials:true}));
 
 app.get('/', (req,res) => res.send("API is Working"));
 
+app.listen(4000, () => {
+  console.log('Server running on http://localhost:4000');
+});
+
 app.use('/api/user' ,userRouter)
 app.use('/api/seller', sellerRouter)
 app.use('/api/product', productRouter)
