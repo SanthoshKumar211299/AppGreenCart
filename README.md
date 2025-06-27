@@ -13,5 +13,8 @@ GreenCart is a full-stack e-commerce platform designed for seamless online shopp
 * Cloud deployment via Vercel
 
 **Role:** Full-stack developer – handled both frontend and backend integration, including Stripe payment gateway and REST API development.
+**Deployed URL**
+***=> https://app-green-cart.vercel.app**
+***=> https://app-green-cart-backend.vercel.app***
 
 
