@@ -19,7 +19,7 @@ const Cart = () => {
     setCartItems,
   } = useAppContext();
   const [cartArray, setCartArray] = useState([]);
-  const [showAddress, setShowAddress] = useState([]);
+  const [showAddress, setShowAddress] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [paymentOption, setPaymentOption] = useState("COD");
