@@ -1,7 +1,3 @@
-Here's a concise and professional project description you can add to your portfolio:
-
----
-
 ### 🛒 **GreenCart – E-commerce Web Application**
 
 **Tech Stack:** React.js, Node.js, Express.js, MongoDB, Stripe API, TailwindCSS, Vercel
@@ -18,6 +14,4 @@ GreenCart is a full-stack e-commerce platform designed for seamless online shopp
 
 **Role:** Full-stack developer – handled both frontend and backend integration, including Stripe payment gateway and REST API development.
 
----
 
-Let me know if you'd like a more technical or recruiter-friendly version!
