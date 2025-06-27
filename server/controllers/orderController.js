@@ -116,7 +116,7 @@ export const stripeWebhooks = async(request,response)=>{
 
     //Stripe getway initialize
 
-    const stripeInstance = new Stripe(process.env.STRIPE_WEBHOOK_SECRET);
+    const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY);
 
     const sig= request.headers['stripe-signature']
 
